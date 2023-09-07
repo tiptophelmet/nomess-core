@@ -14,5 +14,4 @@ The framework with simple, yet crucial features for your Golang back-end to let 
 - 📧 Mailer interface
 - 🔒 Password hashing/checking
 - 🛠️ Utils
-- 📧🎨 AWS SES templates
 - ⚙️ Config variables
