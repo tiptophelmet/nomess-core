@@ -16,34 +16,33 @@ type Router struct {
 	mux *mux.Router
 }
 
-func Init() *Router {
-	router = &Router{mux: mux.NewRouter()}
-
-	return router
+func Init() {
+	if router != nil {
+		router = &Router{mux: mux.NewRouter()}
+	}
 }
 
 func GetMuxRouter() *mux.Router {
 	return router.mux
 }
 
-func Handle(pattern string, handlr func(http.ResponseWriter, *http.Request)) *mux.Route {
+func Handle(pattern string, handler func(http.ResponseWriter, *http.Request)) *mux.Route {
 	PeekRouteLock(pattern)
 
 	return router.mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+		w, r = mw.WithMiddleware(w, r)
+
 		responder.Init(w, r)
 
-		mw.WithMiddleware(w, r)
-
-		handlr(w, r)
+		handler(w, r)
 	})
 }
 
-// enhanced websocket handler
-func WebSocket(pattern string, upgrader *websocket.Upgrader, handlr func(*websocket.Conn)) *mux.Route {
+func WebSocket(pattern string, upgrader *websocket.Upgrader, handler func(*websocket.Conn)) *mux.Route {
 	PeekRouteLock(pattern)
 
 	return router.mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
-		mw.WithMiddleware(w, r)
+		w, r = mw.WithMiddleware(w, r)
 
 		ws, err := upgrader.Upgrade(w, r, nil)
 
@@ -52,6 +51,6 @@ func WebSocket(pattern string, upgrader *websocket.Upgrader, handlr func(*websoc
 			return
 		}
 
-		handlr(ws)
+		handler(ws)
 	})
 }
