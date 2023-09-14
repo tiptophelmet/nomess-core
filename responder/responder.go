@@ -23,9 +23,9 @@ func Init(w http.ResponseWriter, r *http.Request) *Responder {
 	return resp
 }
 
-func Respond(r interface{}, statusCode int) {
-	postprocessor.WithPostProcessor(resp.w, resp.r)
+func Respond(response interface{}, statusCode int) {
+	w, _ := postprocessor.WithPostProcessor(resp.w, resp.r)
 
 	resp.w.WriteHeader(statusCode)
-	json.NewEncoder(resp.w).Encode(r)
+	json.NewEncoder(w).Encode(response)
 }
