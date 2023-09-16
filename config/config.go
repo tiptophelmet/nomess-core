@@ -1,7 +1,7 @@
 package config
 
 import (
-	"os"
+	"embed"
 
 	"github.com/tiptophelmet/nomess-core/logger"
 	"github.com/tiptophelmet/nomess-core/util"
@@ -23,14 +23,14 @@ func fallback(configName string) interface{} {
 
 var fallbackConfList *fallbackConfigList
 
-func initFallbackConfigs() *fallbackConfigList {
+func initFallbackConfigs(fallbackFile embed.FS) *fallbackConfigList {
 	if fallbackConfList != nil {
 		return fallbackConfList
 	}
 
 	var list *toml.Tree
 
-	if tomlData, err := os.ReadFile("../../config.toml"); err != nil {
+	if tomlData, err := fallbackFile.ReadFile("config.toml"); err != nil {
 		logger.Fatal(err.Error())
 	} else if list, err = toml.Load(string(tomlData)); err != nil {
 		logger.Fatal(err.Error())
@@ -68,7 +68,7 @@ func initAppConfigs() *configList {
 	return confList
 }
 
-func Init() {
-	initFallbackConfigs()
+func Init(fallbackFile embed.FS) {
+	initFallbackConfigs(fallbackFile)
 	initAppConfigs()
 }
