@@ -17,7 +17,7 @@ type Router struct {
 }
 
 func Init() {
-	if router != nil {
+	if router == nil {
 		router = &Router{mux: mux.NewRouter()}
 	}
 }
