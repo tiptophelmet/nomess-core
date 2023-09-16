@@ -10,22 +10,18 @@ import (
 )
 
 type fallbackConfigList struct {
-	list map[string]interface{}
+	tree *toml.Tree
 }
 
 func fallback(configName string) interface{} {
-	if val, present := fallbackConfList.list[configName]; present {
-		return val
-	} else {
-		return nil
-	}
+	return fallbackConfList.tree.Get(configName)
 }
 
 var fallbackConfList *fallbackConfigList
 
-func initFallbackConfigs(fallbackFile embed.FS) *fallbackConfigList {
+func initFallbackConfigs(fallbackFile embed.FS) {
 	if fallbackConfList != nil {
-		return fallbackConfList
+		return
 	}
 
 	var tree *toml.Tree
@@ -43,8 +39,7 @@ func initFallbackConfigs(fallbackFile embed.FS) *fallbackConfigList {
 
 	}
 
-	fallbackConfList = &fallbackConfigList{tree.ToMap()}
-	return fallbackConfList
+	fallbackConfList = &fallbackConfigList{tree}
 }
 
 func keysRecurse(tree *toml.Tree, prefix string) []string {
@@ -73,9 +68,9 @@ type configList struct {
 
 var confList *configList
 
-func initAppConfigs() *configList {
+func initAppConfigs() {
 	if confList != nil {
-		return confList
+		return
 	}
 
 	list := make(map[string]*env)
@@ -85,7 +80,6 @@ func initAppConfigs() *configList {
 	}
 
 	confList = &configList{list}
-	return confList
 }
 
 func Init(fallbackFile embed.FS) {
