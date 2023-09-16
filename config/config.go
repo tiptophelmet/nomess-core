@@ -28,14 +28,14 @@ func initFallbackConfigs(fallbackFile embed.FS) *fallbackConfigList {
 		return fallbackConfList
 	}
 
-	var list *toml.Tree
+	var tree *toml.Tree
 
 	if tomlData, err := fallbackFile.ReadFile("config.toml"); err != nil {
 		logger.Fatal(err.Error())
-	} else if list, err = toml.Load(string(tomlData)); err != nil {
+	} else if tree, err = toml.Load(string(tomlData)); err != nil {
 		logger.Fatal(err.Error())
 	} else {
-		illegal := util.GetNonIntersecting(getSupportedConfigKeys(), list.Keys())
+		illegal := util.GetNonIntersecting(getSupportedConfigKeys(), keysRecurse(tree, ""))
 
 		if len(illegal) > 0 {
 			logger.Fatal("fallback config.toml has illegal keys: %v", illegal)
@@ -43,8 +43,28 @@ func initFallbackConfigs(fallbackFile embed.FS) *fallbackConfigList {
 
 	}
 
-	fallbackConfList = &fallbackConfigList{list.ToMap()}
+	fallbackConfList = &fallbackConfigList{tree.ToMap()}
 	return fallbackConfList
+}
+
+func keysRecurse(tree *toml.Tree, prefix string) []string {
+	var keys []string
+
+	for _, key := range tree.Keys() {
+		fullKey := key
+		if prefix != "" {
+			fullKey = prefix + "." + key
+		}
+
+		subTree := tree.Get(key)
+		if nestedTree, ok := subTree.(*toml.Tree); ok {
+			keys = append(keys, keysRecurse(nestedTree, fullKey)...)
+		} else {
+			keys = append(keys, fullKey)
+		}
+	}
+
+	return keys
 }
 
 type configList struct {
