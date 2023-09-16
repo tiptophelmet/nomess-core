@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/tiptophelmet/nomess-core/errs"
-	"github.com/tiptophelmet/nomess-core/logger"
+	"github.com/tiptophelmet/nomess-core/v2/errs"
+	"github.com/tiptophelmet/nomess-core/v2/logger"
 )
 
 type RedisCacher struct {

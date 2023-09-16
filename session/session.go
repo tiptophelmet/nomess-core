@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go/v4"
-	"github.com/tiptophelmet/nomess-core/errs"
-	"github.com/tiptophelmet/nomess-core/logger"
+	"github.com/tiptophelmet/nomess-core/v2/errs"
+	"github.com/tiptophelmet/nomess-core/v2/logger"
 )
 
 type sessionManager struct {

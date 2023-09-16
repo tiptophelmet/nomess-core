@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/tiptophelmet/nomess-core/logger"
-	"github.com/tiptophelmet/nomess-core/util"
+	"github.com/tiptophelmet/nomess-core/v2/logger"
+	"github.com/tiptophelmet/nomess-core/v2/util"
 )
 
 type configOptions struct {

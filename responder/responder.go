@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/tiptophelmet/nomess-core/postprocessor"
+	"github.com/tiptophelmet/nomess-core/v2/postprocessor"
 )
 
 type Responder struct {
