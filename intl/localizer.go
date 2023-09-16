@@ -1,6 +1,7 @@
 package intl
 
 import (
+	"embed"
 	"fmt"
 	"sync"
 
@@ -9,30 +10,36 @@ import (
 
 var lz *localizer
 
-func Init(defaultLocale string) {
+func Init(defaultLocale string, localesDir embed.FS) {
 	if lz != nil {
 		return
 	}
 
-	lz = &localizer{locale: defaultLocale}
+	lz = &localizer{locale: defaultLocale, localesDir: localesDir}
 
 	loadLocale()
-}
-
-func loadLocale() {
-	var err error
-
-	lz.localeTree, err = toml.LoadFile(fmt.Sprintf("../../locales/%s.toml", lz.locale))
-
-	if err != nil {
-		panic(err)
-	}
 }
 
 type localizer struct {
 	locale     string
 	localeTree *toml.Tree
+	localesDir embed.FS
 	mu         sync.Mutex
+}
+
+func loadLocale() {
+	var err error
+
+	localeFileBytes, err := lz.localesDir.ReadFile(fmt.Sprintf("locales/%s.toml", lz.locale))
+	if err != nil {
+		panic(err)
+	}
+
+	lz.localeTree, err = toml.LoadBytes(localeFileBytes)
+
+	if err != nil {
+		panic(err)
+	}
 }
 
 func SetLocale(locale string) {
