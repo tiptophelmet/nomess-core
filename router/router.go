@@ -5,8 +5,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
-	"github.com/tiptophelmet/nomess-core/v2/logger"
-	mw "github.com/tiptophelmet/nomess-core/v2/middleware"
+	"github.com/tiptophelmet/nomess-core/v3/logger"
+	mw "github.com/tiptophelmet/nomess-core/v3/middleware"
 )
 
 var router *Router

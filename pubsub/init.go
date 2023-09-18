@@ -3,8 +3,8 @@ package pubsub
 import (
 	"sync"
 
-	"github.com/tiptophelmet/nomess-core/v2/logger"
-	"github.com/tiptophelmet/nomess-core/v2/pubsub/broker"
+	"github.com/tiptophelmet/nomess-core/v3/logger"
+	"github.com/tiptophelmet/nomess-core/v3/pubsub/broker"
 )
 
 type pubSubClient struct {
