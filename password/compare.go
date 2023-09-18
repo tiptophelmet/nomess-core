@@ -12,7 +12,7 @@ func CompareToHash(password string, hashed string) bool {
 	if err == bcrypt.ErrMismatchedHashAndPassword {
 		return false
 	} else if err != nil {
-		logger.Fatal("could not compare password to hash: %s", err.Error())
+		logger.Fatal("failed to compare password to hash: %s", err.Error())
 		return false
 	}
 

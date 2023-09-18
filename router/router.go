@@ -7,7 +7,6 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/tiptophelmet/nomess-core/v2/logger"
 	mw "github.com/tiptophelmet/nomess-core/v2/middleware"
-	"github.com/tiptophelmet/nomess-core/v2/responder"
 )
 
 var router *Router
@@ -30,11 +29,7 @@ func Handle(pattern string, handler func(http.ResponseWriter, *http.Request)) *m
 	PeekRouteLock(pattern)
 
 	return router.mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
-		w, r = mw.WithMiddleware(w, r)
-
-		responder.Init(w, r)
-
-		handler(w, r)
+		handler(mw.WithMiddleware(w, r))
 	})
 }
 
