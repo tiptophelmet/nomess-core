@@ -4,7 +4,7 @@ import "errors"
 
 // App errors
 var (
-	ErrPasswordHash                    = errors.New("password could not be hashed")
+	ErrPasswordHash                    = errors.New("failed to hash password")
 	ErrTypeAssertion                   = errors.New("type assertion from interface{} failed")
 	ErrJwtNotIssued                    = errors.New("failed to issue jwt")
 	ErrJwtNotParsed                    = errors.New("failed to parse jwt")

@@ -17,7 +17,7 @@ var client *gormClient
 func InitGormConnection(dialector gorm.Dialector, config *gorm.Config) {
 	gormConn, err := gorm.Open(dialector, config)
 	if err != nil {
-		logger.Panic("could not resolve connect to postgres db: %v", err.Error())
+		logger.Panic("failed to resolve connect to postgres db: %v", err.Error())
 	}
 
 	client = &gormClient{conn: gormConn}
@@ -27,7 +27,7 @@ func InitGormConnection(dialector gorm.Dialector, config *gorm.Config) {
 func prepareConnectionPool() {
 	sqlDB, err := client.conn.DB()
 	if err != nil {
-		logger.Panic("could not resolve connect to db: %v", err.Error())
+		logger.Panic("failed to resolve connect to db: %v", err.Error())
 	}
 
 	sqlDB.SetMaxIdleConns(10)
