@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/bradfitz/gomemcache/memcache"
-	"github.com/tiptophelmet/nomess-core/v2/errs"
-	"github.com/tiptophelmet/nomess-core/v2/logger"
+	"github.com/tiptophelmet/nomess-core/v3/errs"
+	"github.com/tiptophelmet/nomess-core/v3/logger"
 )
 
 type MemcachedCacher struct {

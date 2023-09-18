@@ -3,8 +3,8 @@ package config
 import (
 	"embed"
 
-	"github.com/tiptophelmet/nomess-core/v2/logger"
-	"github.com/tiptophelmet/nomess-core/v2/util"
+	"github.com/tiptophelmet/nomess-core/v3/logger"
+	"github.com/tiptophelmet/nomess-core/v3/util"
 
 	"github.com/pelletier/go-toml"
 )

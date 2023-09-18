@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/tiptophelmet/nomess-core/v2/logger"
-	"github.com/tiptophelmet/nomess-core/v2/postprocessor"
+	"github.com/tiptophelmet/nomess-core/v3/logger"
+	"github.com/tiptophelmet/nomess-core/v3/postprocessor"
 )
 
 type WithResponseFunc func(response interface{}, statusCode int)
