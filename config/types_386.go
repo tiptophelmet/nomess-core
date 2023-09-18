@@ -1,7 +1,6 @@
 package config
 
 import (
-	"math"
 	"reflect"
 
 	"github.com/tiptophelmet/nomess-core/v2/logger"
@@ -69,19 +68,24 @@ func (co *configOptions) Bool() bool {
 }
 
 func (co *configOptions) Int() int {
-	valInt64 := co.Int64()
-	if valInt64 == 0 {
+	valInt32 := co.Int32()
+	if valInt32 == 0 {
 		return 0
 	}
 
-	if valInt64 > int64(math.MaxInt64) || valInt64 < int64(math.MinInt64) {
-		logger.Error("config '%v' does not fit into int (suggested: '%v')",
-			valInt64, reflect.TypeOf(co.rawVal))
+	return int(valInt32)
+}
+
+func (co *configOptions) Int32() int32 {
+	val, typeOk := co.rawVal.(int32)
+	if !typeOk {
+		logger.Error("config '%v' does not assert to int32 (suggested: '%v')",
+			co.name, reflect.TypeOf(co.rawVal))
 
 		return 0
 	}
 
-	return int(valInt64)
+	return val
 }
 
 func (co *configOptions) Int64() int64 {
