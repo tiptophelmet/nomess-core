@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/nats-io/nats.go"
-	"github.com/tiptophelmet/nomess-core/v3/errs"
-	"github.com/tiptophelmet/nomess-core/v3/logger"
+	"github.com/tiptophelmet/nomess-core/v4/errs"
+	"github.com/tiptophelmet/nomess-core/v4/logger"
 )
 
 func InitNATSBroker() *NATSBroker {

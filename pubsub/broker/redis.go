@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/tiptophelmet/nomess-core/v3/errs"
-	"github.com/tiptophelmet/nomess-core/v3/logger"
+	"github.com/tiptophelmet/nomess-core/v4/errs"
+	"github.com/tiptophelmet/nomess-core/v4/logger"
 )
 
 func InitRedisBroker() *RedisBroker {
