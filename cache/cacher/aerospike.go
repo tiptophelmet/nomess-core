@@ -6,8 +6,8 @@ import (
 
 	"github.com/aerospike/aerospike-client-go/v6"
 	aerospikeurl "github.com/tiptophelmet/aerospike-url"
-	"github.com/tiptophelmet/nomess-core/v3/errs"
-	"github.com/tiptophelmet/nomess-core/v3/logger"
+	"github.com/tiptophelmet/nomess-core/v4/errs"
+	"github.com/tiptophelmet/nomess-core/v4/logger"
 )
 
 type AerospikeCacher struct {

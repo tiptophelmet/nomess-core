@@ -1,8 +1,8 @@
 package orm
 
 import (
-	"github.com/tiptophelmet/nomess-core/v3/db/orm/sql"
-	"github.com/tiptophelmet/nomess-core/v3/logger"
+	"github.com/tiptophelmet/nomess-core/v4/db/orm/sql"
+	"github.com/tiptophelmet/nomess-core/v4/logger"
 	"gorm.io/driver/clickhouse"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"

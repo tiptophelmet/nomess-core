@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/tiptophelmet/nomess-core/v3/logger"
-	"github.com/tiptophelmet/nomess-core/v3/util"
+	"github.com/tiptophelmet/nomess-core/v4/logger"
+	"github.com/tiptophelmet/nomess-core/v4/util"
 )
 
 type configOptions struct {

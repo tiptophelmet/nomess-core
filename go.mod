@@ -1,4 +1,4 @@
-module github.com/tiptophelmet/nomess-core/v3
+module github.com/tiptophelmet/nomess-core/v4
 
 go 1.21
 
