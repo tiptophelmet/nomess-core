@@ -1,6 +1,9 @@
 package config
 
 import (
+	"math"
+	"reflect"
+
 	"github.com/tiptophelmet/nomess-core/v2/logger"
 	"github.com/tiptophelmet/nomess-core/v2/util"
 )
@@ -25,20 +28,16 @@ func raw(name string) interface{} {
 		return nil
 	}
 
-	var rawVal interface{}
-
 	if env.value != nil {
-		rawVal = env.value
-	} else {
-		rawVal = env.fallback
+		return env.value
 	}
 
-	return rawVal
+	return env.fallback
 }
 
 func (co *configOptions) Required() *configOptions {
 	if util.IsEmpty(co.rawVal) {
-		logger.Panic("could not resolve config %v", co.name)
+		logger.Panic("config '%v' is required", co.name)
 		return nil
 	}
 
@@ -48,38 +47,10 @@ func (co *configOptions) Required() *configOptions {
 func (co *configOptions) Str() string {
 	val, typeOk := co.rawVal.(string)
 	if !typeOk {
-		logger.Error("could not assert config %v to string", co.name)
+		logger.Error("config '%v' does not assert to string (suggested: '%v')",
+			co.name, reflect.TypeOf(co.rawVal))
+
 		return ""
-	}
-
-	return val
-}
-
-func (co *configOptions) Int() int {
-	val, typeOk := co.rawVal.(int)
-	if !typeOk {
-		logger.Error("could not assert config %v to int", co.name)
-		return 0
-	}
-
-	return val
-}
-
-func (co *configOptions) Int64() int64 {
-	val, typeOk := co.rawVal.(int64)
-	if !typeOk {
-		logger.Error("could not assert config %v to int64", co.name)
-		return 0
-	}
-
-	return val
-}
-
-func (co *configOptions) Float() float32 {
-	val, typeOk := co.rawVal.(float32)
-	if !typeOk {
-		logger.Error("could not assert config %v to float", co.name)
-		return 0.0
 	}
 
 	return val
@@ -88,8 +59,50 @@ func (co *configOptions) Float() float32 {
 func (co *configOptions) Bool() bool {
 	val, typeOk := co.rawVal.(bool)
 	if !typeOk {
-		logger.Error("could not assert config %v to bool", co.name)
+		logger.Error("config '%v' does not assert to bool (suggested: '%v')",
+			co.name, reflect.TypeOf(co.rawVal))
+
 		return false
+	}
+
+	return val
+}
+
+func (co *configOptions) Int() int {
+	valInt64 := co.Int64()
+	if valInt64 == 0 {
+		return 0
+	}
+
+	if valInt64 > int64(math.MaxInt64) || valInt64 < int64(math.MinInt64) {
+		logger.Error("config '%v' does not fit into int (suggested: '%v')",
+			valInt64, reflect.TypeOf(co.rawVal))
+
+		return 0
+	}
+
+	return int(valInt64)
+}
+
+func (co *configOptions) Int64() int64 {
+	val, typeOk := co.rawVal.(int64)
+	if !typeOk {
+		logger.Error("config '%v' does not assert to int64 (suggested: '%v')",
+			co.name, reflect.TypeOf(co.rawVal))
+
+		return 0
+	}
+
+	return val
+}
+
+func (co *configOptions) Float64() float64 {
+	val, typeOk := co.rawVal.(float64)
+	if !typeOk {
+		logger.Error("config '%v' does not assert to float64 (suggested: '%v')",
+			co.name, reflect.TypeOf(co.rawVal))
+
+		return 0.0
 	}
 
 	return val
