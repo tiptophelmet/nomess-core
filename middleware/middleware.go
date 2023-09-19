@@ -14,6 +14,12 @@ func Register(pattern string, mwFuncList []MiddlewareFunc) {
 	mw[pattern] = mwFuncList
 }
 
+func RegisterMulti(patterns []string, mwFuncList []MiddlewareFunc) {
+	for _, pattern := range patterns {
+		mw[pattern] = mwFuncList
+	}
+}
+
 func Default(mwFuncList []MiddlewareFunc) {
 	defaultMwList = mwFuncList
 }
