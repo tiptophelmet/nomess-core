@@ -1,8 +1,8 @@
 package password
 
 import (
-	"github.com/tiptophelmet/nomess-core/v4/errs"
-	"github.com/tiptophelmet/nomess-core/v4/logger"
+	"github.com/tiptophelmet/nomess-core/v5/errs"
+	"github.com/tiptophelmet/nomess-core/v5/logger"
 
 	"golang.org/x/crypto/bcrypt"
 )

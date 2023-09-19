@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/tiptophelmet/nomess-core/v4/logger"
+	"github.com/tiptophelmet/nomess-core/v5/logger"
 )
 
 var lockedPatterns []string

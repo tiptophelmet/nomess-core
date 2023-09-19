@@ -3,8 +3,8 @@ package cache
 import (
 	"sync"
 
-	"github.com/tiptophelmet/nomess-core/v4/cache/cacher"
-	"github.com/tiptophelmet/nomess-core/v4/logger"
+	"github.com/tiptophelmet/nomess-core/v5/cache/cacher"
+	"github.com/tiptophelmet/nomess-core/v5/logger"
 )
 
 type cacheClient struct {
