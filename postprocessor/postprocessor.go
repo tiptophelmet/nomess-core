@@ -2,6 +2,8 @@ package postprocessor
 
 import (
 	"net/http"
+
+	"github.com/tiptophelmet/nomess-core/v5/util"
 )
 
 type PostProcFunc func(http.ResponseWriter, *http.Request) (http.ResponseWriter, *http.Request)
@@ -27,7 +29,9 @@ func Default(postProcFuncList []PostProcFunc) {
 func WithPostProcessor(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {
 	postProcList := defaultPostProcList
 
-	if postProcPathList, found := postProc[r.URL.Path]; found {
+	pattern := util.GetRoutePattern(r)
+
+	if postProcPathList, found := postProc[pattern]; found {
 		postProcList = append(postProcList, postProcPathList...)
 	}
 
