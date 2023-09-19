@@ -1,4 +1,4 @@
-package router
+package util
 
 import (
 	"context"
@@ -12,7 +12,7 @@ type routePatternContextKey string
 
 const key routePatternContextKey = "NOMESS-ROUTE-PATTERN"
 
-func markRoutePattern(pattern string, r *http.Request) *http.Request {
+func MarkRoutePattern(pattern string, r *http.Request) *http.Request {
 	ctx := context.WithValue(r.Context(), key, pattern)
 	return r.WithContext(ctx)
 }
@@ -22,7 +22,7 @@ func GetRoutePattern(r *http.Request) string {
 	if !toStrOk {
 		err := fmt.Errorf("route pattern was not marked for %s", r.URL.RequestURI())
 		logger.Fatal(err.Error())
-		
+
 		return ""
 	}
 

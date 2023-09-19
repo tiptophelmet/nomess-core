@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/tiptophelmet/nomess-core/v5/logger"
 	mw "github.com/tiptophelmet/nomess-core/v5/middleware"
+	"github.com/tiptophelmet/nomess-core/v5/util"
 )
 
 var router *Router
@@ -31,7 +32,7 @@ func Handle(pattern string, handler func(http.ResponseWriter, *http.Request)) *m
 	return router.mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 		w, r = mw.WithMiddleware(w, r)
 
-		r = markRoutePattern(pattern, r)
+		r = util.MarkRoutePattern(pattern, r)
 
 		handler(w, r)
 	})
@@ -43,7 +44,7 @@ func WebSocket(pattern string, upgrader *websocket.Upgrader, handler func(*webso
 	return router.mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 		w, r = mw.WithMiddleware(w, r)
 
-		r = markRoutePattern(pattern, r)
+		r = util.MarkRoutePattern(pattern, r)
 
 		ws, err := upgrader.Upgrade(w, r, nil)
 
