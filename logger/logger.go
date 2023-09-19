@@ -22,6 +22,10 @@ func Init(level string, formatter logrus.Formatter) {
 	logger.SetLevel(parsedLevel)
 }
 
+func Logger() *logrus.Logger {
+	return logger
+}
+
 func Panic(format string, args ...interface{}) {
 	logger.Panicf(format, args...)
 }
