@@ -14,6 +14,12 @@ func Register(pattern string, postProcFuncList []PostProcFunc) {
 	postProc[pattern] = postProcFuncList
 }
 
+func RegisterMulti(patterns []string, postProcFuncList []PostProcFunc) {
+	for _, pattern := range patterns {
+		postProc[pattern] = postProcFuncList
+	}
+}
+
 func Default(postProcFuncList []PostProcFunc) {
 	defaultPostProcList = postProcFuncList
 }
