@@ -2,6 +2,8 @@ package middleware
 
 import (
 	"net/http"
+
+	"github.com/tiptophelmet/nomess-core/v5/util"
 )
 
 type MiddlewareFunc func(http.ResponseWriter, *http.Request) (http.ResponseWriter, *http.Request)
@@ -27,7 +29,9 @@ func Default(mwFuncList []MiddlewareFunc) {
 func WithMiddleware(w http.ResponseWriter, r *http.Request) (http.ResponseWriter, *http.Request) {
 	mwList := defaultMwList
 
-	if mwPathList, found := mw[r.URL.Path]; found {
+	pattern := util.GetRoutePattern(r)
+
+	if mwPathList, found := mw[pattern]; found {
 		mwList = append(mwList, mwPathList...)
 	}
 
