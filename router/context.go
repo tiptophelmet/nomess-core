@@ -17,14 +17,14 @@ func markRoutePattern(pattern string, r *http.Request) *http.Request {
 	return r.WithContext(ctx)
 }
 
-func GetRoutePattern(r *http.Request) (string, error) {
+func GetRoutePattern(r *http.Request) string {
 	routePatternContextVal, toStrOk := r.Context().Value(key).(string)
 	if !toStrOk {
 		err := fmt.Errorf("route pattern was not marked for %s", r.URL.RequestURI())
-
-		logger.Error(err.Error())
-		return "", err
+		logger.Fatal(err.Error())
+		
+		return ""
 	}
 
-	return routePatternContextVal, nil
+	return routePatternContextVal
 }
