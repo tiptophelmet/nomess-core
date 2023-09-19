@@ -8,10 +8,10 @@ import (
 
 var logger *logrus.Logger
 
-func Init(level string) {
+func Init(level string, formatter logrus.Formatter) {
 	logger = logrus.New()
 
-	logger.SetFormatter(&logrus.JSONFormatter{})
+	logger.SetFormatter(formatter)
 	logger.SetOutput(os.Stdout)
 
 	parsedLevel, err := logrus.ParseLevel(level)
