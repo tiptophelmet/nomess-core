@@ -29,7 +29,11 @@ func Handle(pattern string, handler func(http.ResponseWriter, *http.Request)) *m
 	PeekRouteLock(pattern)
 
 	return router.mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
-		handler(mw.WithMiddleware(w, r))
+		w, r = mw.WithMiddleware(w, r)
+
+		r = markRoutePattern(pattern, r)
+
+		handler(w, r)
 	})
 }
 
@@ -38,6 +42,8 @@ func WebSocket(pattern string, upgrader *websocket.Upgrader, handler func(*webso
 
 	return router.mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
 		w, r = mw.WithMiddleware(w, r)
+
+		r = markRoutePattern(pattern, r)
 
 		ws, err := upgrader.Upgrade(w, r, nil)
 
