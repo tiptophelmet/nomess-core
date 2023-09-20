@@ -2,6 +2,9 @@
 
 The framework with simple, yet crucial features for your Golang back-end to let you focus more on business logic.
 
+Use this template to create your back-end powered by Nomess:
+https://github.com/tiptophelmet/nomess-template
+
 #### What's included: 
 - 🛤️ Route handlers
 - 📦 Request bodies
