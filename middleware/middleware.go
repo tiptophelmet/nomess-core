@@ -3,6 +3,7 @@ package middleware
 import (
 	"net/http"
 
+	"github.com/tiptophelmet/nomess-core/v5/logger"
 	"github.com/tiptophelmet/nomess-core/v5/util"
 )
 
@@ -37,6 +38,10 @@ func WithMiddleware(w http.ResponseWriter, r *http.Request) (http.ResponseWriter
 
 	for _, mw := range mwList {
 		w, r = mw(w, r)
+		if w == nil {
+			logger.Debug("Request to [%s] %s halted by middleware", r.Method, pattern)
+			return nil, r
+		}
 	}
 
 	return w, r

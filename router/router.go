@@ -33,6 +33,9 @@ func Handle(pattern string, handler func(http.ResponseWriter, *http.Request)) *m
 		r = util.MarkRoutePattern(pattern, r)
 
 		w, r = mw.WithMiddleware(w, r)
+		if w == nil {
+			return
+		}
 
 		handler(w, r)
 	})
@@ -45,6 +48,9 @@ func WebSocket(pattern string, upgrader *websocket.Upgrader, handler func(*webso
 		r = util.MarkRoutePattern(pattern, r)
 
 		w, r = mw.WithMiddleware(w, r)
+		if w == nil {
+			return
+		}
 
 		ws, err := upgrader.Upgrade(w, r, nil)
 
