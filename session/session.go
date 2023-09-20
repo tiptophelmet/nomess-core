@@ -61,7 +61,7 @@ func (session *sessionManager) TryRotateSessionToken(signedToken string) (string
 		return []byte(session.jwtSecret), nil
 	})
 
-	if !parsedToken.Valid {
+	if parsedToken == nil || !parsedToken.Valid {
 		return "", errs.ErrInvalidJwt
 	}
 
@@ -95,7 +95,7 @@ func (session *sessionManager) ValidateSessionToken(token string) (bool, error) 
 		return []byte(session.jwtSecret), nil
 	})
 
-	if !parsedToken.Valid || err != nil {
+	if parsedToken == nil || !parsedToken.Valid || err != nil {
 		return false, nil
 	}
 
