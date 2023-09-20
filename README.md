@@ -5,13 +5,12 @@ The framework with simple, yet crucial features for your Golang back-end to let 
 #### What's included: 
 - 🛤️ Route handlers
 - 📦 Request bodies
-- 🕶️ Middleware
+- 🚡 Middleware/Post-processors
 - 🏢 Services (for business logic)
 - 🗄️ DB interface (GORM)
 - 🏎️ Cache interface (Redis, Memcached Aerospike)
 - 📢 Pubsub interface (Redis PubSub, NATS)
 - 🌍 i18n & localization
-- 📧 Mailer interface
 - 🔒 Password hashing/checking
 - 🛠️ Utils
 - ⚙️ Config variables
