@@ -11,8 +11,8 @@ import (
 	"github.com/tiptophelmet/nomess-core/v5/util"
 )
 
-func ListenAndServe(addr string) {
-	http.ListenAndServe(addr, router.mux)
+func ListenAndServe(addr string) error {
+	return http.ListenAndServe(addr, router.mux)
 }
 
 func ListenAndServeAsLambda() {
