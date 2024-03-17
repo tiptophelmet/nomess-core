@@ -1,6 +1,7 @@
 package router
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -16,24 +17,26 @@ func ListenAndServe(addr string) error {
 }
 
 func ListenAndServeAsLambda() {
-	lambda.Start(func(proxyReq events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-		reader := strings.NewReader(proxyReq.Body)
-		req, err := http.NewRequest(proxyReq.HTTPMethod, proxyReq.Path, reader)
-		if err != nil {
-			logger.Error("failed to handle Lambda's APIGatewayProxyRequest due to error (%s)", err.Error())
-			return events.APIGatewayProxyResponse{StatusCode: http.StatusInternalServerError}, err
-		}
+	lambda.Start(lambdaHandler)
+}
 
-		responseRecorder := httptest.NewRecorder()
-		router.mux.ServeHTTP(responseRecorder, req)
+func lambdaHandler(ctx context.Context, proxyReq events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
+	reader := strings.NewReader(proxyReq.Body)
+	req, err := http.NewRequest(proxyReq.HTTPMethod, proxyReq.Path, reader)
+	if err != nil {
+		logger.Error("failed to handle Lambda's APIGatewayProxyRequest due to error (%s)", err.Error())
+		return events.APIGatewayProxyResponse{StatusCode: http.StatusInternalServerError}, err
+	}
 
-		singleValHeaders, multiValHeaders := util.GetHeaderMaps(responseRecorder)
+	responseRecorder := httptest.NewRecorder()
+	router.mux.ServeHTTP(responseRecorder, req)
 
-		return events.APIGatewayProxyResponse{
-			StatusCode:        responseRecorder.Code,
-			Headers:           singleValHeaders,
-			MultiValueHeaders: multiValHeaders,
-			Body:              responseRecorder.Body.String(),
-		}, nil
-	})
+	singleValHeaders, multiValHeaders := util.GetHeaderMaps(responseRecorder)
+
+	return events.APIGatewayProxyResponse{
+		StatusCode:        responseRecorder.Code,
+		Headers:           singleValHeaders,
+		MultiValueHeaders: multiValHeaders,
+		Body:              responseRecorder.Body.String(),
+	}, nil
 }
