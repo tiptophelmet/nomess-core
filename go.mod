@@ -1,7 +1,6 @@
 module github.com/tiptophelmet/nomess-core/v5
 
-go 1.21
-toolchain go1.24.1
+go 1.25.0
 
 require (
 	github.com/pelletier/go-toml v1.9.5
@@ -43,9 +42,9 @@ require (
 	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da // indirect
 	go.opentelemetry.io/otel v1.14.0 // indirect
 	go.opentelemetry.io/otel/trace v1.14.0 // indirect
-	golang.org/x/net v0.21.0 // indirect
-	golang.org/x/sync v0.11.0 // indirect
-	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/net v0.55.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
+	golang.org/x/text v0.37.0 // indirect
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 	google.golang.org/grpc v1.54.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
@@ -61,8 +60,8 @@ require (
 	github.com/nats-io/nats.go v1.39.1
 	github.com/redis/go-redis/v9 v9.1.0
 	github.com/tiptophelmet/aerospike-url v1.1.0
-	golang.org/x/crypto v0.34.0
-	golang.org/x/sys v0.30.0 // indirect
+	golang.org/x/crypto v0.51.0
+	golang.org/x/sys v0.45.0 // indirect
 	gorm.io/driver/clickhouse v0.5.1
 	gorm.io/driver/mysql v1.5.1
 	gorm.io/driver/postgres v1.5.2
