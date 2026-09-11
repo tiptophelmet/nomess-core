@@ -55,7 +55,7 @@ require (
 	github.com/bradfitz/gomemcache v0.0.0-20230905024940-24af94b03874
 	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
 	github.com/gorilla/mux v1.8.0
-	github.com/gorilla/websocket v1.5.0
+	github.com/gorilla/websocket v1.5.3
 	github.com/nats-io/nats.go v1.39.1
 	github.com/redis/go-redis/v9 v9.1.0
 	github.com/tiptophelmet/aerospike-url v1.1.0
